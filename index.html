@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://unpkg.com/konva@8.4.2/konva.min.js"></script>
+    <script src="https://unpkg.com/gifler@0.1.0/gifler.js"></script>
+    <meta charset="utf-8" />
+    <title>Konva GIF Demo</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background: #000;
+        color: #fff;
+        font: #fff 14px Arial;
+      }
+      #container {
+        position: fixed;
+        z-index: -10;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+  </body>
+  <script>
+    var width = window.innerWidth;
+    var height = window.innerHeight;
+
+    var stage = new Konva.Stage({
+      container: 'container',
+      width: width,
+      height: height,
+    });
+
+    var layer = new Konva.Layer();
+    stage.add(layer);
+
+    var canvas = document.createElement('canvas');
+    // use external library to parse and draw gif animation
+    let previous = 0
+    function onDrawFrame(ctx, frame) {
+      var scrollTop = window.pageYOffset || document.body.scrollTop;
+      let dx = scrollTop - previous
+      console.log(dx);
+      for (let i = 0; i < dx; i++) {
+
+        <!-- ctx.drawImage(frame.buffer, 0, 0, frame.width, frame.height, 0, i * dx, frame.width, frame.height); -->
+      }
+      // update canvas size
+      canvas.width = frame.width;
+      canvas.height = frame.height;
+      // update canvas that we are using for Konva.Image
+      ctx.drawImage(frame.buffer, 0, 0);
+      // redraw the layer
+      layer.draw();
+    }
+
+    gifler('docker.gif').frames(canvas, onDrawFrame);
+
+    // draw resulted canvas into the stage as Konva.Image
+    var image = new Konva.Image({
+      image: canvas,
+    });
+    layer.add(image);
+  </script>
+</html>
