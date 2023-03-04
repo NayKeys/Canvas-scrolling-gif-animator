@@ -1,3 +1,8 @@
+# Canvas-scrolling-gif-animator
+Typescript and soon react gif canvas component. You scroll, gif animates, simple.
+
+## This is the testing environement for now
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
